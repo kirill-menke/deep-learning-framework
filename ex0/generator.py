@@ -63,8 +63,7 @@ class ImageGenerator:
         # (mirroring and/or rotation) on it and outputs the transformed image
 
         if self.rotation:
-            for _ in range(random.choice(4)):
-                img = np.rot90(img)
+            img = np.rot90(img, random.choice(4))
         if self.mirroring:
             if random.choice(2):
                 img = np.fliplr(img)
@@ -83,8 +82,11 @@ class ImageGenerator:
         # batch of images and labels and visualizes it.
 
         images, labels = self.next()
-        n = int(ceil(sqrt(len(images))))
-        _, ax = plt.subplots(nrows=n, ncols=n)
-        for (i, l, s) in zip(images, labels, [col for row in ax for col in row]):
-            s.imshow(i)
-            s.set_title(self.class_name(l))
+        n = ceil(sqrt(len(images)))
+        for i, img in enumerate(images):
+            s = plt.subplot(n, n, i + 1)
+            s.imshow(img)
+            s.set_title(self.class_name(labels[i]))
+            s.axis('off')
+
+        plt.tight_layout()

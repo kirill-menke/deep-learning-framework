@@ -38,14 +38,12 @@ class Circle:
     def draw(self):
         if not self.output:
             # https://stackoverflow.com/a/29330486/9505725
-            x = np.arange(0, self.res)
+            x = np.arange(self.res)
             X, Y = np.meshgrid(x, x)
 
             mx, my = self.pos
             pts = (X - mx) ** 2 + (Y - my) ** 2 <= self.r ** 2
-
-            self.output = np.zeros(X.shape)
-            self.output[pts] = 1
+            self.output = np.where(pts, 1, 0)
         return self.output.copy()
 
     def show(self):
@@ -60,16 +58,9 @@ class Spectrum:
 
     def draw(self):
         if not self.output:
-            r = g = np.linspace(0, 1, self.res)
-            b = np.linspace(1, 0, self.res)
-            R, G = np.meshgrid(r, g)
-            B, _ = np.meshgrid(b, g)
-
-            R = np.expand_dims(R, 2)
-            G = np.expand_dims(G, 2)
-            B = np.expand_dims(B, 2)
-
-            self.output = np.concatenate((R, G, B), axis=2)
+            left = np.linspace((0, 0, 1), (0, 1, 1), self.res)
+            right = np.linspace((1, 0, 0), (1, 1, 0), self.res)
+            self.output = np.array([np.linspace(l, r, self.res) for l, r in zip(left, right)])
         return self.output.copy()
 
     def show(self):

@@ -58,9 +58,16 @@ class Spectrum:
 
     def draw(self):
         if not self.output:
-            left = np.linspace((0, 0, 1), (0, 1, 1), self.res)
-            right = np.linspace((1, 0, 0), (1, 1, 0), self.res)
-            self.output = np.array([np.linspace(l, r, self.res) for l, r in zip(left, right)])
+            r = g = np.linspace(0, 1, self.res)
+            b = np.linspace(1, 0, self.res)
+            R, G = np.meshgrid(r, g)
+            B, _ = np.meshgrid(b, g)
+
+            R = np.expand_dims(R, 2)
+            G = np.expand_dims(G, 2)
+            B = np.expand_dims(B, 2)
+
+            self.output = np.concatenate((R, G, B), axis=2)
         return self.output.copy()
 
     def show(self):

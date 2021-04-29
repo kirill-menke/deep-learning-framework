@@ -35,7 +35,7 @@ class FullyConnected(Base):
         return self.input_tensor @ self.weights
 
     def backward(self, error_tensor):
-        next_error_tensor = np.delete(error_tensor @ self.weights.T, 1, -1)
+        next_error_tensor = np.delete(error_tensor @ self.weights.T, -1, 1)
 
         self.gradient_weights = self.input_tensor.T @ error_tensor
         if self.optimizer is not None:

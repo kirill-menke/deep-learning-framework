@@ -31,12 +31,15 @@ class FullyConnected(Base):
 
 
     def forward(self, input_tensor):
+        # Adding bias to the input
         self.input_tensor = np.column_stack((input_tensor, np.ones(input_tensor.shape[0])))
         return self.input_tensor @ self.weights
 
     def backward(self, error_tensor):
+        # Gradient of loss function w.r.t. the input (-> Backpropagation)
         next_error_tensor = np.delete(error_tensor @ self.weights.T, -1, 1)
-
+        
+        # Gradient of loss function w.r.t. the weights (-> Gradient descent)
         self.gradient_weights = self.input_tensor.T @ error_tensor
         if self.optimizer is not None:
             self.weights = self.optimizer.calculate_update(self.weights, self.gradient_weights)

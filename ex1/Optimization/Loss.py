@@ -11,5 +11,4 @@ class CrossEntropyLoss:
         return np.sum(losses)
 
     def backward(self, label_tensor):
-        grad = -label_tensor / self.input_tensor
-        return grad
+        return -label_tensor / self.input_tensor

@@ -37,7 +37,7 @@ class FullyConnected(Base):
 
     def backward(self, error_tensor):
         # Gradient of loss function w.r.t. the input (-> Backpropagation)
-        next_error_tensor = np.delete(error_tensor @ self.weights.T, -1, 1)
+        next_error_tensor = error_tensor @ np.delete(self.weights.T, -1, 1)
         
         # Gradient of loss function w.r.t. the weights (-> Gradient descent)
         self.gradient_weights = self.input_tensor.T @ error_tensor

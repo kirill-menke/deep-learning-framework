@@ -8,8 +8,7 @@ class ReLU(Base):
 
     def forward(self, input_tensor):
         self.input_tensor = input_tensor
-        ret = np.maximum(0, input_tensor)
-        return ret
+        return np.maximum(0, input_tensor) 
         
     def backward(self, error_tensor):
         error_tensor[self.input_tensor <= 0] = 0

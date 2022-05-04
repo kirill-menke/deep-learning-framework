@@ -126,11 +126,6 @@ class RNN(Base):
         return next_error_tensor
 
 
-    def calculate_regularization_loss(self):
-        # sum up the regularization loss from the optimizers/layers incorporated in the RNN cell
-        ...
-
-
     def initialize(self, weights_initializer, bias_initializer):
         self.fc_hidden.initialize(weights_initializer, bias_initializer)
         self.fc_output.initialize(weights_initializer, bias_initializer)

@@ -1,4 +1,2 @@
 __pycache__/
-./log.txt
-./plots
-./NeuralNetworkTests.py
+TestConvNet.png

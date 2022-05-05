@@ -16,28 +16,29 @@ from Optimization import Constraints, Loss, Optimizers
 
 # Define network parameters
 iterations = 200
+batch_size = 150
+num_kernels = 4
+categories = 10
+
 input_image_shape = (1, 8, 8)
 conv_stride_shape = (1, 1)
 convolution_shape = (1, 3, 3)
-categories = 10
-batch_size = 150
-num_kernels = 4
 
-# Create optimizer used for gradient descent
+# Define optimizer used for gradient descent
 adam_with_l2 = Optimizers.Adam(5e-3, 0.98, 0.999)
 adam_with_l2.add_regularizer(Constraints.L2_Regularizer(8e-2))
 
-# Create weight and bias initializer
+# Define weight and bias initializer
 weight_initializer = Initializers.He()
 bias_initializer = Initializers.Constant(0.1)
 
-# Create loss function for classification
+# Define loss function for classification
 loss_layer = Loss.CrossEntropyLoss()
 
 # Load UCI ML hand-written digits datasets
 data_layer = Helpers.DigitData(batch_size)
 
-# Create Neural Network and append layers
+# Create neural network and its layers
 net = NeuralNetwork(adam_with_l2, weight_initializer, bias_initializer)
 net.data_layer = data_layer
 net.loss_layer = loss_layer
@@ -49,6 +50,7 @@ flatten1 = Flatten()
 fc1 = FullyConnected(np.prod((num_kernels, *input_image_shape[1:])), categories)
 softmax = SoftMax()
 
+# Append layers
 net.append_layer(conv1)
 net.append_layer(batch_norm2)
 net.append_layer(relu1)

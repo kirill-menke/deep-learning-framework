@@ -14,7 +14,6 @@ class Conv(Base):
         self.stride_shape = np.asarray(stride_shape)
         self.convolution_shape = convolution_shape
         self.num_kernels = num_kernels
-        # TODO: Separate weights and bias?
         self.weights = np.random.rand(num_kernels, *convolution_shape)
         self.bias = np.random.rand(num_kernels)
 
@@ -88,7 +87,6 @@ class Conv(Base):
         npad = ((0, 0), (0, 0), *map(lambda x: (int(np.ceil(0.5 * (x - 1))), int(np.floor(0.5 * (x - 1)))), self.weights.shape[2:]))
         padded_input_tensor = np.pad(self.input_tensor, npad)
 
-        # TODO: Maybe optimize
         for input_sample, error_sample in zip(padded_input_tensor, upsampled_error_tensor):
             for i, error_slice in enumerate(error_sample):
                 for j, input_slice in enumerate(input_sample):
@@ -107,4 +105,4 @@ class Conv(Base):
 
     def initialize(self, weights_initializer, bias_initializer):
         self.weights = weights_initializer.initialize(self.weights.shape, np.prod(self.convolution_shape), self.num_kernels * np.prod(self.convolution_shape[1:]))
-        self.bias = bias_initializer.initialize(self.num_kernels, self.num_kernels, 1) # May be wrong
+        self.bias = bias_initializer.initialize(self.num_kernels, self.num_kernels, 1)

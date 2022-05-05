@@ -1,9 +1,9 @@
-# CNN framework written from scratch
+# Python CNN Framework
 
 ## Description
 This is a simple CNN framework based on Python and pure Numpy. 
 
-It can be used for educational purposes and experimentation with simple CNN architectures.
+It can be used for educational purposes (e.g. to understand the inner workings of single layers on a lower level) and for experimentation with simple CNN architectures.
 
 ## Features
 - ***Layers***
@@ -14,6 +14,12 @@ It can be used for educational purposes and experimentation with simple CNN arch
   - BatchNormalization
   - Flatten
   - Simple RNN
+
+- ***Activations***
+  - Sigmoid
+  - ReLU
+  - TanH
+  - Softmax
   
 - ***Optimizers***
   - SGD
@@ -26,15 +32,12 @@ It can be used for educational purposes and experimentation with simple CNN arch
   - Xavier/ Glorot
   - He
 
-- ***Activations***
-  - Sigmoid
-  - ReLU
-  - TanH
-  - Softmax
+- ***Loss Functions***
+  - CrossEntropyLoss
 
 
 ## Example: Classification on UCI ML hand-written digits dataset
-The example code below can be found in `example.py` and demonstrates a simple classification on the UCI ML hand-written digits dataset which was loaded from scikit_learn. The architecture below can be extended and individual layers replaced as required. The available components are located in the folders `./Layers` and `./Optimization`. 
+The example code below can be found in `example.py` and demonstrates a simple classification on the UCI ML hand-written digits dataset which was loaded using scikit_learn. The architecture below can be extended and individual layers replaced as required. The available components are located in the folders `./Layers` and `./Optimization`. 
 ```python
 import numpy as np
 
